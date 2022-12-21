@@ -10,8 +10,11 @@ import re
 from autocorrect import Speller
 from PIL import Image
 
-d = enchant.Dict("en_US")
-spell = Speller(lang='en')
+#d = enchant.Dict("en_US")
+#spell = Speller(lang='en')
+
+d = enchant.Dict("fr")
+spell = Speller(lang='fr')
 
 # Crop image by removing a number of pixels
 def shrinkByPixels(im, pixels):
@@ -109,7 +112,7 @@ def processScript(script):
 
     for char in script:
         # Comic books tend to be written in upper case, so we remove anything other than upper case chars
-        if char not in ' -QWERTYUIOPASDFGHJKLZXCVBNM,.?!""\'’1234567890':
+        if char not in ' -QWERTYUIOPASDFGHJKLZXCVBNM,.?!""\'’1234567890abcdefghijklmnopqrstwxyzéèêàâôûîçÇÀÂÉÈäïëöüÿÂÙÜËÄÖÜÏ':
             script = script.replace(char,'')
 
     # This line removes "- " and concatenates words split on two lines
@@ -142,7 +145,7 @@ def processScript(script):
 def tesseract(image):
     # We could consider using tessedit_char_whitelist to limit the recognition of Tesseract. 
     #   Doing that degraded OCR performance in practice
-    script = pytesseract.image_to_string(image, lang = 'eng')
+    script = pytesseract.image_to_string(image, lang = 'fra')
     return processScript(script)
 
 def segmentPage(image, shouldShowImage = False):
