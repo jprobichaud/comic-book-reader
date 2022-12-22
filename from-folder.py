@@ -118,6 +118,11 @@ class BubbleExtractor:
         if output_contour:
             out_edit_jpg = os.path.join(output_folder, f"{base_motif}.contours.jpg")
             contours = findSpeechBubbles(npimg)
+            print("contours")
+            for ci, contour in enumerate(contours):
+                rect = cv2.boundingRect(contour)
+                [x, y, w, h] = rect
+                print(f"bubble {ci:3d} -> ({x},{y}) -> ({x+w},{y+h})")
             cv2.drawContours(npimg, contours, -1, (0, 255, 0), 3)
             _, buffer = cv2.imencode('.jpg', npimg)
             print(f"writing {out_edit_jpg}")
