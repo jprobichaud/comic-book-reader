@@ -51,7 +51,7 @@ class SileroTtsWrapper:
             return torch.zeros(1), self.sample_rate
 
 
-from comic_book_reader import parseComicSpeechBubbles, segmentPage, findSpeechBubbles
+from comic_book_reader import segmentPage, findSpeechBubbles
 
 def add_margin(pil_img, top, right, bottom, left, color):
     width, height = pil_img.size
