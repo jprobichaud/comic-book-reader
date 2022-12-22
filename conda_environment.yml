@@ -224,5 +224,6 @@ dependencies:
     - webencodings==0.5.1
     - werkzeug==2.2.2
     - wrapt==1.12.1
+    - yattag==1.14.0
     - zopfli==0.2.2
 prefix: /home/jp/miniconda3/envs/ComicReader2

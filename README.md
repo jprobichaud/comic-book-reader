@@ -4,8 +4,28 @@
 Application python pour extraire les bulles et le texte de celles-ci avant de générer des fichiers audios correspondants.
 
 
+## Installation
+
+C'est un peu primitif pour l'instant.
+
+1. Installer conda ()
+1. Créer l'environment : `conda env create -f conda_environment.yml`
+1. Activer l'environment conda : `conda activate ComicReaderFr`
+
+## Example:
+
+```
+python from-folder.py repertoire_de_sortie  fichier_image.jpg
+```
+
+Le script va analyzer le fichier `fichier_image.jpg` et mettre les fichiers audios, le fichier html, les différentes images et le texte extract (un fichier par bulle détectée) dans le répertoire, avec comme base de nom `fichier_image` 
+
+Il y a quelques fichiers dans le répertoire `examples` 
+
+
+
 ## Technologies
-Python, Pytorch, Docker, Docker Compose
+Python, Pytorch, 
 
 ## Libraries
 doctr.io for OCR (Optical Character Recognition), OpenCV
