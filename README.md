@@ -8,7 +8,7 @@ Application python pour extraire les bulles et le texte de celles-ci avant de g√
 
 C'est un peu primitif pour l'instant.
 
-1. Installer conda ()
+1. Installer conda (miniconda suffit : https://docs.conda.io/en/latest/miniconda.html)
 1. Cr√©er l'environment : `conda env create -f conda_environment.yml`
 1. Activer l'environment conda : `conda activate ComicReaderFr`
 
