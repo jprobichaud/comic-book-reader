@@ -4,7 +4,6 @@ import cv2
 import enchant
 import numpy
 import os
-import pytesseract
 import re
 
 from autocorrect import Speller
@@ -141,13 +140,6 @@ def processScript(script):
 
     return final
 
-# Apply the ocr engine to the given image and return the recognized script where illegitimate characters are filtered out
-def tesseract(image):
-    # We could consider using tessedit_char_whitelist to limit the recognition of Tesseract. 
-    #   Doing that degraded OCR performance in practice
-    script = pytesseract.image_to_string(image, lang = 'fra')
-    return processScript(script)
-
 def segmentPage(image, shouldShowImage = False):
     contours = findSpeechBubbles(image)
     croppedImageList = cropSpeechBubbles(image, contours)
@@ -160,32 +152,3 @@ def segmentPage(image, shouldShowImage = False):
 
     return croppedImageList
 
-def parseComicSpeechBubbles(croppedImageList, shouldShowImage = False):
-    scriptList = []
-
-    for croppedImage in croppedImageList:
-        # Enlarge cropped image
-        croppedImage = cv2.resize(croppedImage, (0,0), fx = 2, fy = 2)
-        # # Denoise
-        croppedImage = cv2.fastNlMeansDenoisingColored(croppedImage, None, 10, 10, 7, 15)
-
-        if shouldShowImage:
-            cv2.imshow('Cropped Speech Bubble', croppedImage)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
-
-        # Pass cropped image to the ocr engine
-        script = tesseract(croppedImage)
-    
-        # If we don't find any characters, try shrinking the cropped area. 
-        #  This occasionally helps tesseract recognize single word lines, but increases processing time.
-        count = 0
-        while (script == '' and count < 3):
-            count+=1
-            croppedImage = shrinkByPixels(croppedImage, 5)
-            script = tesseract(croppedImage)
-
-        if script != '' and script not in scriptList:
-            scriptList.append(script)
-
-    return scriptList
